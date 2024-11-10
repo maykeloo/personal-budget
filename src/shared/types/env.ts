@@ -20,12 +20,10 @@ export class Env {
     if (nodeEnv.parse(import.meta.env).MODE === 'development') {
       const developmentSchema = devEnvSchema.parse(import.meta.env)
       return {
-        AUTH0_CLIENT_ID: developmentSchema.VITE_AUTH0_CLIENT_ID,
-        AUTH0_DOMAIN: developmentSchema.VITE_AUTH0_DOMAIN,
         SUPABASE_KEY: developmentSchema.VITE_SUPABASE_KEY,
         SUPABASE_URL: developmentSchema.VITE_SUPABASE_URL,
       }
     }
-    return envSchema.parse(process.env)
+    return envSchema.parse(import.meta.env)
   }
 }
