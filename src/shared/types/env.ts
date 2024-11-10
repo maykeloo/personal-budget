@@ -7,8 +7,6 @@ const nodeEnv = z.object({
 const envSchema = z.object({
   SUPABASE_URL: z.string(),
   SUPABASE_KEY: z.string(),
-  AUTH0_DOMAIN: z.string(),
-  AUTH0_CLIENT_ID: z.string(),
 })
 
 const devEnvSchema = z.object(
