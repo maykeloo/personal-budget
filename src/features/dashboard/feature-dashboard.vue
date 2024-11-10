@@ -20,8 +20,8 @@ const { transactions } = storeToRefs(useTransactionsStore())
     <DashboardSummaryCards class="mt-4" />
     <DashboardTabs class="my-6" />
     <div class="flex gap-6">
-      <DashboardYearBar />
-      <DashboardRecentTransactions :transactions="transactions"/>
+      <DashboardYearBar class="w-2/3" :transactions="transactions"/>
+      <DashboardRecentTransactions class="w-1/3" :transactions="transactions"/>
     </div>
   </div>
 </template>

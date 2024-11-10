@@ -1,21 +1,36 @@
 <script setup lang="ts">
-import { BarChart } from '@/ui/components/ui/chart-bar'
+import { LineChart } from '@/ui/components/ui/chart-line'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ui/components/ui/card'
+import type { Tables } from '@/schema'
+import { useTransactions } from '@/features/transaction/composables/useTransactions'
+import { Month } from '@/shared/types/time'
+import { computed } from 'vue'
+import dayjs from 'dayjs'
+import ChartTooltip from '@/ui/components/chart-tooltip.vue'
 
-const data = [
-  { name: 'Jan', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Feb', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Mar', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Apr', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'May', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Jun', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Jul', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Aug', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Sep', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Oct', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Nov', total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: 'Dec', total: Math.floor(Math.random() * 5000) + 1000 },
-]
+const props = defineProps<{
+  transactions: Tables<'transactions'>[]
+}>()
+
+const { getTransactionForMonth } = useTransactions()
+
+const data = computed(() => {
+  const months = Object.values(Month) as Month[]
+  const deposit = months.map((month) => {
+    return getTransactionForMonth(props.transactions, 'DEPOSIT', month)
+  })
+  const expense = months.map((month) => {
+    return getTransactionForMonth(props.transactions, 'EXPENSE', month)
+  })
+
+  return months.map((month, i) => {
+    return {
+      name: month.key,
+      deposit: deposit[i],
+      expense: expense[i],
+    }
+  })
+})
 </script>
 
 <template>
@@ -24,7 +39,11 @@ const data = [
       <CardTitle>Overview</CardTitle>
     </CardHeader>
     <CardContent class="pl-2">
-      <BarChart :data="data" :categories="['total']" :index="'name'" :rounded-corners="4" />
+      <LineChart
+        :data="data"
+        index="name"
+        :categories="['deposit', 'expense']"
+      />
     </CardContent>
   </Card>
 </template>

@@ -15,6 +15,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@radix-icons/vue": "^1.0.0",
     "@supabase/supabase-js": "^2.46.1",
     "@unovis/ts": "1.5.0-beta.0",
     "@unovis/vue": "1.5.0-beta.0",
@@ -22,6 +23,7 @@
     "@vueuse/core": "^11.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "lucide": "^0.456.0",
     "lucide-vue-next": "^0.456.0",
     "pinia": "^2.2.6",

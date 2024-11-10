@@ -11,6 +11,10 @@ const props = defineProps<{
   transactions: Tables<'transactions'>[]
 }>()
 
+const lastTransactions = computed(() => {
+  return props.transactions.slice(0, 5)
+})
+
 const sumOfTransactions = computed(() => {
   return props.transactions.reduce((acc, transaction) => acc + transaction.amount, 0)
 })
@@ -19,11 +23,11 @@ const sumOfTransactions = computed(() => {
 <template>
   <Card class="flex flex-col basis-1/3">
     <CardHeader>
-      <CardTitle>Recent Sales</CardTitle>
+      <CardTitle>Last transactions</CardTitle>
       <CardDescription> You made {{ sumOfTransactions }} sales this month.</CardDescription>
     </CardHeader>
-    <CardContent>
-      <div v-for="transaction in transactions" :key="transaction.id" class="space-y-8">
+    <CardContent class="flex flex-col gap-4">
+      <div v-for="transaction in lastTransactions" :key="transaction.id" class="space-y-8">
         <div class="flex items-center">
           <Avatar
             class="h-9 w-9"
