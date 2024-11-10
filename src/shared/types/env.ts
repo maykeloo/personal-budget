@@ -17,6 +17,7 @@ type EnvSchema = z.infer<typeof envSchema>
 
 export class Env {
   static variables() {
+    console.log(import.meta.env)
     if (nodeEnv.parse(import.meta.env).MODE === 'development') {
       const developmentSchema = devEnvSchema.parse(import.meta.env)
       return {
