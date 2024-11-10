@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { buttonVariants } from '@/ui/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn } from '@/ui/utils'
 import { computed } from 'vue'
 
 defineProps<{

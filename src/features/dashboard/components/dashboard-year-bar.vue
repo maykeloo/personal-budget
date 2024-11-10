@@ -5,8 +5,6 @@ import type { Tables } from '@/schema'
 import { useTransactions } from '@/features/transaction/composables/useTransactions'
 import { Month } from '@/shared/types/time'
 import { computed } from 'vue'
-import dayjs from 'dayjs'
-import ChartTooltip from '@/ui/components/chart-tooltip.vue'
 
 const props = defineProps<{
   transactions: Tables<'transactions'>[]
@@ -39,11 +37,7 @@ const data = computed(() => {
       <CardTitle>Overview</CardTitle>
     </CardHeader>
     <CardContent class="pl-2">
-      <LineChart
-        :data="data"
-        index="name"
-        :categories="['deposit', 'expense']"
-      />
+      <LineChart :data="data" index="name" :categories="['deposit', 'expense']" />
     </CardContent>
   </Card>
 </template>

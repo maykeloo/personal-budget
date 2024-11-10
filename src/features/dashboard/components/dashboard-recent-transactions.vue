@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Avatar, AvatarFallback, AvatarImage } from '@/ui/components/ui/avatar'
+import { Avatar } from '@/ui/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/ui/components/ui/card'
 import type { Tables } from '@/schema'
 import { computed } from 'vue'
