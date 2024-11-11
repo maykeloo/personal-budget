@@ -11,8 +11,8 @@ const { signInRequest } = useUserSignIn()
     <template #form>
       <AuthForm
         :error-message="signInRequest.error.value?.message"
-        :is-loading="signInRequest.loading.value"
-        @submit="signInRequest.run($event.email, $event.password)"
+        :is-loading="signInRequest.isLoading.value"
+        @submit="signInRequest.execute(0, $event.email, $event.password)"
       />
     </template>
   </LoginWrapper>

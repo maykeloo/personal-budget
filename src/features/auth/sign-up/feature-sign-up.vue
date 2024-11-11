@@ -10,9 +10,9 @@ const { signUpRequest } = useUserSignUp()
   <LoginWrapper view="sign-up">
     <template #form>
       <AuthForm
-        :is-loading="signUpRequest.loading.value"
+        :is-loading="signUpRequest.isLoading.value"
         :error-message="signUpRequest.error.value?.message"
-        @submit="signUpRequest.run($event.email, $event.password)"
+        @submit="signUpRequest.execute(0, $event.email, $event.password)"
       />
       {{ signUpRequest }}
     </template>

@@ -1,20 +1,27 @@
 import { defineStore } from 'pinia'
 import { UserController } from '@/application/controllers/user.controller'
 import { supabase } from '@/lib/db/db.config'
-import { useRequest } from 'vue-request'
-import { computed } from 'vue'
+import { useAsyncState } from '@vueuse/core'
+import type { User } from '@supabase/supabase-js'
 
 export const useUserStore = defineStore('user', () => {
   const userController = new UserController(supabase)
-  const { data, mutate, runAsync } = useRequest(() => userController.getUser(), {
-    manual: true,
-  })
-
-  const user = computed(() => data.value?.data.user ?? null)
+  const { state: user, execute } = useAsyncState(
+    async () => {
+      const user = await userController.getUser()
+      return user.data.user
+    },
+    null,
+    {
+      immediate: false,
+      onSuccess: (newUser) => {
+        user.value = newUser
+      },
+    },
+  )
 
   return {
     user,
-    mutateUser: mutate,
-    getUser: runAsync,
+    getUser: execute,
   }
 })
